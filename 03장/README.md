@@ -23,7 +23,7 @@
 
 ## 01-1. 디자인패턴이란?
 
-![curious](./images/curiosity.png)
+<img alt="curiosity" src="./images/curiosity.png" width=70%>
 
 - 프로그램을 작성하다보면 비슷한 상황을 직면.
 - 이전의 많은 개발자들이 고민하고 정제한 `표준 설계 패턴`.
@@ -128,9 +128,14 @@ public class ClientWithAdapter {
 ```
 
 - 클라이언트(ClientWithAdapter)가 변환기를 통해 동일한 메서드인 runService() 호출.
-- 어댑터 패턴 `합성`, 즉 객체를 속성으로 만들어서 참조하는 디자인 패턴.
+- 즉, 직접 ServiceA, ServiceB의 메서드를 호출하는 것이 아닌 어댑터 객체를 통해 접근.
 
-> 💡 호출당하는 쪽의 메서드를 호출하는 쪽의 코드에 대응하도록 중간에 변환기를 통해 호출하는 패턴
+### 시퀸스 다이어그램(Sequence Diagram)
+
+![after_adapter_diagram](./images/after_adapter_diagram.PNG)
+
+- 어댑터 패턴 `합성`, 즉 객체를 속성으로 만들어서 참조하는 디자인 패턴.
+- 호출 당하는 쪽의 메서드(**runServiceA**)를 중간 변환기(**AdapterServiceA**)를 통해 호출하는 패턴.
 
 ### 01-2. 프록시 패턴(Proxy Pattern)
 
@@ -153,13 +158,13 @@ public class ClientWithAdapter {
 
 ## 02. 스프링 삼각형과 설정정보
 
-![spring_framework](./images/spring_fw.png)
+<img alt="spring_fw" src="./images/spring_fw.png" width=70%>
 
-- DI(**Dependency Injection**)
-- AOP(**Aspect Oriented Programming**)
-- PSA(**Portable Service Abstractions**)
+- **DI**(**Dependency Injection**)
+- **AOP**(**Aspect Oriented Programming**)
+- **PSA**(**Portable Service Abstractions**)
 
-### 02-1. IOC/DI - 제어의 역전과 의존성 주입
+## 02-1. IOC/DI - 제어의 역전과 의존성 주입
 
 > 프로그래밍에서 의존성이란 무엇일까?  
 > 그렇다면 어떠한 것에 의존 한다는게 어떤 의미일까?

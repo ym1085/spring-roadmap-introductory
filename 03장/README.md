@@ -1,42 +1,136 @@
-## ⚡ 목차
+## 📌 목차
 
-1.  스프링이 사랑한 디자인패턴
-2.  스프링 삼각형과 설정정보
+1.  **디자인패턴**
+2.  **스프링 삼각형과 설정정보**
 
 ## 01. 스프링이 사랑한 디자인패턴
 
 ![주방도구](./images/kitchen_utensils.jpg)
 
+> 현재까지 진행한 OOP의 개념
+
 1. 객체 지향의 4대 특성
 2. SOLID 5대 원칙
-3. <u style="text-decoration: none; border-bottom: 1px solid rgb(99, 238, 86); padding-bottom: 0px;">디자인패턴</u>
+3. `디자인패턴`
 
 **객체 지향 특성**은 **도구**, **설계 원칙**은 **도구를 올바르게 사용하는 방법**으로 비유.
 
-| 요리                                                       | 객체 지향 프로그래밍                   |
-| ---------------------------------------------------------- | -------------------------------------- |
-| **요리도구**                                               | 4대 원칙(상속, 추상화, 다형성, 캡슐화) |
-| **요리도구 사용법**                                        | 5대 설계 원칙(SOLID)                   |
-| <span style="color:yellow; font-weight:bold">레시피</span> | 디자인 패턴                            |
+| 요리                | 객체 지향 프로그래밍                   |
+| ------------------- | -------------------------------------- |
+| **요리도구**        | 4대 원칙(상속, 추상화, 다형성, 캡슐화) |
+| **요리도구 사용법** | 5대 설계 원칙(SOLID)                   |
+| `레시피`            | 디자인 패턴                            |
 
-### 01-1. 디자인패턴이란?
+## 01-1. 디자인패턴이란?
 
-![curious](./images/curious.jpg)
+![curious](./images/curiosity.png)
 
 - 프로그램을 작성하다보면 비슷한 상황을 직면.
-- 이전의 많은 개발자들이 고민하고 정제한 표준 설계 패턴.
+- 이전의 많은 개발자들이 고민하고 정제한 `표준 설계 패턴`.
 
-> 즉, 실제 개발 현장에서 다양한 요구사항을 프로그래밍으로 처리하면서 만들어진 다양한 해결책 중 많은 사람들이 인정한 Best Practice를 정리한 것.
+> 즉, 실제 개발 현장에서 다양한 요구사항을 프로그래밍으로 처리하면서 만들어진 다양한 해결책 중  
+> 많은 사람들이 인정한 Best Practice를 정리한 것.
 
-### 01-2. 스프링 프레임워크(Spring Framework)
+## 01-2. 스프링 프레임워크(Spring Framework)
 
 > 스프링 프레임워크를 설명하는 공식정인 정의
 
 - 자바 엔터프라이즈 개발을 편하게 해주는 **Open source application framework**
 - **OOP 프레임워크**
-- <u style="text-decoration: none; border-bottom: 1px solid rgb(99, 238, 86); padding-bottom: 0px">스프링은 객체 지향의 특성과 설계 원칙을 극한까지 적용한 프레임워크.</u>
+- `스프링`은 `객체 지향`의 `특성과 설계 원칙`을 `극한`까지 적용한 프레임워크.
 
-### 01-1. 어댑터 패턴(Adapter Pattern)
+## 01-1. 어댑터 패턴(Adapter Pattern)
+
+![phone](./images/charger.jpg)
+
+> 💡 개발 폐쇄 원칙()을 활용한 설계 패턴
+
+- 어댑터를 번역하면 `변환기`
+- **서로 다른 두 인터페이스 사이에 통신을 가능하게 함**
+- 대표적으로는 `휴대폰 충전기`가 존재
+- ODBC(Open Database Connectivity), JDBC(Java Database Connectivity), JRE
+
+### 어댑터 패턴 예제(Before)
+
+```java
+// ServiceA 클래스 생성
+public class ServiceA {
+    void runServiceA() {
+        System.out.println("ServiceA");
+    }
+}
+```
+
+```java
+// ServiceB 클래스 생성
+public class ServiceB {
+    void runServiceB() {
+        System.out.println("ServiceB");
+    }
+}
+```
+
+```java
+// main
+public class ClientWithNoAdapter {
+
+    public static void main(String[] args) {
+        ServiceA sa1 = new ServiceA(); // 1. 객체 생성
+        ServiceB sb1 = new ServiceA(); // 2. 객체 생성
+
+        sa1.runServiceA(); // 3. sa1.runServiceA() 호출
+        sb1.runServiceB(); // 4. sa1.runServiceB() 호출
+    }
+}
+```
+
+- 현재 sa1, sb1 참조 변수를 통해 runServiceA(), runServiceB() 메서드 호출.
+- 비슷한 일을 하지만 메서드명만 다른 것을 확인 가능.
+
+### 시퀸스 다이어그램(Sequence Diagram)
+
+![before_adapter_diagram](./images/before_adapter_diagram.PNG)
+
+### 어댑터 패턴 예제(After)
+
+```java
+public class AdapterServiceA {
+    ServiceA sa1 = new ServiceA();
+
+    void runService() {
+        sa1.runServiceA();
+    }
+}
+```
+
+```java
+public class AdapterServiceB {
+    ServiceA sb1 = new ServiceB();
+
+    void runService() {
+        sb1.runServiceB();
+    }
+}
+```
+
+```java
+// main
+public class ClientWithAdapter {
+
+    public static void main(String[] args) {
+        AdapterServiceA asa1 = new AdapterServiceA();
+        AdapterServiceB asb1 = new AdapterServiceB();
+
+        sa1.runService();
+        sb1.runService();
+    }
+}
+```
+
+- 클라이언트(ClientWithAdapter)가 변환기를 통해 동일한 메서드인 runService() 호출.
+- 어댑터 패턴 `합성`, 즉 객체를 속성으로 만들어서 참조하는 디자인 패턴.
+
+> 💡 호출당하는 쪽의 메서드를 호출하는 쪽의 코드에 대응하도록 중간에 변환기를 통해 호출하는 패턴
 
 ### 01-2. 프록시 패턴(Proxy Pattern)
 

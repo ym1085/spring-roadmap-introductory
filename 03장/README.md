@@ -1,24 +1,40 @@
-## 목차
+## ⚡ 목차
 
-- 스프링이 사랑한 디자인패턴
-- 스프링 삼각형과 설정정보
+1.  스프링이 사랑한 디자인패턴
+2.  스프링 삼각형과 설정정보
 
-## ⚡ 01. 스프링이 사랑한 디자인패턴
+## 01. 스프링이 사랑한 디자인패턴
 
 ![주방도구](./images/kitchen_utensils.jpg)
 
-It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+1. 객체 지향의 4대 특성
+2. SOLID 5대 원칙
+3. <u style="text-decoration: none; border-bottom: 1px solid rgb(99, 238, 86); padding-bottom: 0px;">디자인패턴</u>
 
-| 요리                | 객체 지향 프로그래밍                   |
-| ------------------- | -------------------------------------- |
-| **요리도구**        | 4대 원칙(상속, 추상화, 다형성, 캡슐화) |
-| **요리도구 사용법** | 5대 설계 원칙(SOLID)                   |
-| **레시피**          | 디자인 패턴                            |
+**객체 지향 특성**은 **도구**, **설계 원칙**은 **도구를 올바르게 사용하는 방법**으로 비유.
 
-디자인 패턴은 실제 개발 현장에서 ~~~~~~~~
+| 요리                                                       | 객체 지향 프로그래밍                   |
+| ---------------------------------------------------------- | -------------------------------------- |
+| **요리도구**                                               | 4대 원칙(상속, 추상화, 다형성, 캡슐화) |
+| **요리도구 사용법**                                        | 5대 설계 원칙(SOLID)                   |
+| <span style="color:yellow; font-weight:bold">레시피</span> | 디자인 패턴                            |
 
-> 자바 엔터프라이즈 개발을 편하게 해주는 오픈소스 경량급 애플리케이션 프레임워크  
-> OOP 프레임워크
+### 01-1. 디자인패턴이란?
+
+![curious](./images/curious.jpg)
+
+- 프로그램을 작성하다보면 비슷한 상황을 직면.
+- 이전의 많은 개발자들이 고민하고 정제한 표준 설계 패턴.
+
+> 즉, 실제 개발 현장에서 다양한 요구사항을 프로그래밍으로 처리하면서 만들어진 다양한 해결책 중 많은 사람들이 인정한 Best Practice를 정리한 것.
+
+### 01-2. 스프링 프레임워크(Spring Framework)
+
+> 스프링 프레임워크를 설명하는 공식정인 정의
+
+- 자바 엔터프라이즈 개발을 편하게 해주는 **Open source application framework**
+- **OOP 프레임워크**
+- <u style="text-decoration: none; border-bottom: 1px solid rgb(99, 238, 86); padding-bottom: 0px">스프링은 객체 지향의 특성과 설계 원칙을 극한까지 적용한 프레임워크.</u>
 
 ### 01-1. 어댑터 패턴(Adapter Pattern)
 
@@ -41,7 +57,7 @@ It is a long established fact that a reader will be distracted by the readable c
 - 위 8가지 패턴 말고도 스프링은 다양한 디자인 패턴 활용.
 - 대표적으로는 Spring MVC(Model, View, Controller) 패턴 존재.
 
-## ⚡ 02. 스프링 삼각형과 설정정보
+## 02. 스프링 삼각형과 설정정보
 
 ![spring_framework](./images/spring_fw.png)
 
@@ -84,4 +100,5 @@ public class Car {
 
 ### 참고 자료
 
-- [[블로그] Spring 이론 (POJO, Java Beans)](https://ksshlee.github.io/spring/spring/)
+- [[책 링크] 스프링 입문을 위한 자바 객체 지향의 원리와 이해](http://www.yes24.com/Product/Goods/22483294)
+- [[사진 참고] Spring 이론 (POJO, Java Beans)](https://ksshlee.github.io/spring/spring/)

@@ -16,11 +16,11 @@
 
 ![주방도구](./images/kitchen_utensils.jpg)
 
-> 현재까지 진행한 OOP의 개념
+> 현재까지는 OOP의 4대 특성과 5대 원칙에 대해 진행 하였습니다
 
 1. 객체 지향의 4대 특성
 2. SOLID 5대 원칙
-3. `디자인패턴`
+3. `디자인패턴` 🚀
 
 **객체 지향 특성**은 **도구**, **설계 원칙**은 **도구를 올바르게 사용하는 방법**으로 비유.
 
@@ -38,7 +38,7 @@
 - 이러한 상황에서 이전의 많은 개발자들이 고민하고 정제한 `표준 설계 패턴`를 의미.
 
 > 즉, 실제 개발 현장에서 다양한 요구사항을 프로그래밍으로 처리하면서 만들어진 다양한 해결책 중  
-> 많은 사람들이 인정한 Best Practice를 정리한 것.
+> 많은 사람들이 인정한 **Best Practice**를 정리한 것.
 
 ## 01-2. 스프링 프레임워크(Spring Framework)
 
@@ -59,10 +59,10 @@
 - 대표적으로는 `휴대폰 충전기`가 존재
 - ODBC(Open Database Connectivity), JDBC(Java Database Connectivity), JRE
 
-### 02-1. 어댑터 패턴 적용 전
+## 02-1. 어댑터 패턴
 
 ```java
-// Before: Class ServiceA
+// Before : Class ServiceA
 public class ServiceA {
     void runServiceA() {
         System.out.println("ServiceA");
@@ -71,7 +71,7 @@ public class ServiceA {
 ```
 
 ```java
-// Before: Class ServiceB
+// Before : Class ServiceA
 public class ServiceB {
     void runServiceB() {
         System.out.println("ServiceB");
@@ -187,8 +187,8 @@ public class ClientWithNoProxy {
 }
 ```
 
-- ClientWithNoProxy 클래스에서 Service 클래스의 메서드를 직접 호출.
-- 위와 같은 코드를 A 가 B(ClientWithNoProxy)에 의존한다 할 수 있다.
+- ClientWithNoProxy 클래스에서 Service 클래스의 메서드를 직접 호출
+- 위와 같은 코드를 A 가 B(ClientWithNoProxy)에 의존한다 할 수 있다
 
 ### 03-2. 프록시 패턴
 
@@ -197,15 +197,11 @@ public class ClientWithNoProxy {
 - 프록시 패턴의 경우 **실제 서비스 객체가 가진 메서드와 같은 이름의 메서드**를 사용
   - 이를 위해서 인터페이스 사용
 - 인터페이스를 사용하면 서비스 객체가 들어갈 자리에 대리자 객체가 투입됨
-- **클라이언트는 서비스객체를 호출하는지, 대리자 객체를 호출하는지 알 수가 없다.**
+- **클라이언트는 서비스 객체를 호출하는지, 대리자 객체를 호출하는지 알 수가 없다**
 
 ### 03-3. 시퀸스 다이어그램
 
 ![after_proxy_pattern_seq_diagram.PNG](./images/after_proxy_pattern_seq_diagram.PNG)
-
-1. ClientWithProxy 클래스에서 메서드 호출
-2. BBB
-3. CCC
 
 ### 03-4. 프록시 패턴 적용 후
 
@@ -284,14 +280,13 @@ public class ClientWithProxy {
   - 클라이언트의 반환 값을 특별한 경우가 아니면 변경하지 않음
 - `데코레이터 패턴`
   - 클라이언트가 받는 반환값에 장식을 더한다
-  - 즉, return 값을 핸들링 한다는 의미
+  - 즉, `return 값을 핸들링 한다는 의미`
 
 ### 04-2. 데코레이터 패턴 적용
 
 ```java
 // Interface Iservice
 public Interface IService {
-    // public abstract 생략해도 상관 없음
     public abstract String runSomething();
 }
 ```
@@ -318,7 +313,7 @@ public class Decoreator implements IService {
 
         service = new Service();
 
-        // 유저의 반환 값을 프록시 단에서 핸들링
+        // 유저의 반환 값을 데코레이터 단에서 핸들링
         return "정말" + service.runSomething();
     }
 }
@@ -344,8 +339,8 @@ public class ClientWithDecolator {
 
 1. 장식자는 실제 서비스와 `같은 이름의 메서드` 구현, 이 때 인터페이스 사용
 2. 장식자는 실제 서비스에 대한 `참조 변수`를 갖는다(합성)
-3. 장식자는 `실제 서비스와 같은 이름을 가진 메서드 호출, 반환값을 조작 후 반환.`
-4. 장식자는 실제 서비스의 메서드 `호출 전후에 비즈니스 로직 수행` 가능.
+3. 장식자는 `실제 서비스와 같은 이름을 가진 메서드 호출, 반환값을 조작 후 반환`
+4. 장식자는 실제 서비스의 메서드 `호출 전후에 비즈니스 로직 수행` 가능
 
 ### 한줄 정리
 
@@ -361,12 +356,12 @@ public class ClientWithDecolator {
 
 ### 05-1. 싱글턴 패턴 적용을 위한 제약
 
-> 싱글턴 패턴은 오직 인스턴스를 하나만 만들고 그것을 계속해서 재사용한다.  
-> 싱글턴 패턴을 적용할 경우 의미상 두 개의 객체가 존재할 수 없다.
+> 싱글턴 패턴은 오직 인스턴스를 하나만 만들고 그것을 계속해서 재사용한다  
+> 싱글턴 패턴을 적용할 경우 의미상 두 개의 객체가 존재할 수 없다
 
-1. 객체 생성을 위한 **new 키워드**에 제약을 걸어야 함.
-2. 유일한 단일 객체를 반환할 수 있는 정적 메서드(**static method**) 필요.
-3. 유일한 단일 객체를 참조할 정적 참조 변수(**static variable**)가 필요.
+1. 객체 생성을 위한 **new 키워드**에 제약을 걸어야 함
+2. 유일한 단일 객체를 반환할 수 있는 정적 메서드(**static method**) 필요
+3. 유일한 단일 객체를 참조할 정적 참조 변수(**static variable**)가 필요
 
 ### 05-2. 싱글턴 패턴 적용
 
@@ -467,8 +462,8 @@ public class Cat {
 }
 ```
 
-- 두번째 줄을 보면 중복되는 코드가 존재
-- OOP의 특성 중 하나인 상속을 통해 문제 해결
+- 두번째 줄을 보면 `중복되는 코드`가 존재
+- OOP의 특성 중 하나인 `상속`을 통해 문제 해결
 
 ### 06-2. 템플릿 메서드 패턴(Template Method Pattern) 적용 후
 
@@ -495,8 +490,9 @@ public abstract class Animal {
 
 **훅(Hook) 메서드란?**
 
-abstract 키워드를 클래스에 붙히면 상속받은 클래스는 반드시 해당 클래스의 추상 메서드를 구현해야 하지만  
-훅(Hook) 메서드로 만들면 반드시 구현할 필요가 없다. 즉, 선택적 오버라이딩(Override)가 가능해진다는 말이다.
+abstract 키워드를 클래스에 붙히면 상속받은 클래스는 반드시 해당 클래스의  
+추상 메서드를 구현해야 하지만 훅(Hook) 메서드로 만들면 반드시 구현할 필요가 없다.  
+즉, 선택적 오버라이딩(Override)가 가능해진다는 말이다.
 
 ```java
 // After : Class Dog
@@ -554,7 +550,7 @@ public class Driver {
 
 ### 06-2. 시퀸스 다이어그램
 
-- `상위 클래스 Animal`에는 `템플릿`을 제공하는 `playWithOwner 메서드`가 존재.
+- `상위 클래스 Animal`에는 `템플릿`을 제공하는 `playWithOwner 메서드`가 존재
   - play() 추상 메서드
   - runSomething() 훅 메서드
 
@@ -578,14 +574,14 @@ public class Driver {
 
 <img alt="curiosity" src="./images/abstract_factory_pattern.PNG" width=70%>
 
-- 우선, 공장이라는 단어를 생각해보면, `무언가를 생산한다` 라는 단어가 떠오른다.
-- 객체지향에서 `팩터리`는 객체를 생성하는데, `팩토리 메서드`는 `객체를 생성 반환하는 메서드를 의미`.
-- **하위 클래스에서 팩터리 메서드를 오버라이딩하여 객체를 반환하는 것.**
+- 우선, 공장이라는 단어를 생각해보면, `무언가를 생산한다` 라는 단어가 떠오른다
+- 객체지향에서 `팩터리`는 객체를 생성하는데, `팩토리 메서드`는 `객체를 생성 반환하는 메서드를 의미`
+- **하위 클래스에서 팩터리 메서드를 오버라이딩하여 객체를 반환하는 것**
 
 ![ball_dog](./images/ball_dog.png)
 
 > 위에서 강아지 bolt와 고양이 kitty가 주인과 노는 코드를 작성해 보았는데  
-> 이번에는 bolt와 kitty가 **각자 가지고 놀고 싶어하는 장난감을 가져오는 모습**을 상상해보자.
+> 이번에는 bolt와 kitty가 **각자 가지고 놀고 싶어하는 장난감을 가져오는 모습**을 상상해보자
 
 ### 07-1 팩터리 메서드 패턴 적용
 
@@ -796,12 +792,123 @@ public class Client {
 
 > ⭐ 클라이언트 측에서 전략(객체)을 생성해 전략을 실행할 컨텍스트에 주입하는 패턴
 
-## 09. 템플릿 콜백 패턴(Template Callback Pattern - 견본/회신 패턴)
+## 09. 템플릿 콜백 패턴(Template Callback Pattern)
+
+> 견본/회신 패턴
+
+- 전략 패턴을 변형한 디자인 패턴
+- `스프링의 3대 프로그래밍 모델` 중 하나인 `DI에서 사용되는 형태의 전략 패턴`
+- 전략 패턴과 모든 것이 동일, `전략을 익명 내부 클래스로 정의하여 사용`
+
+### 09-1. 템플릿 콜백 패턴(Template Callback Pattern) 적용
+
+```java
+// 전략 : Strategy
+public interface Strategy {
+    public abstract void runStrategy();
+}
+```
+
+```java
+// 컨텍스트 : 군인
+public class Soldier {
+
+    void runContext(Strategy strategy) {
+        System.out.println("전투 시작");
+        strategy.runStrategy();
+        System.out.println("전투 종료");
+    }
+}
+```
+
+```java
+// 클라이언트 : 장교
+public class Client {
+
+    public static void main(String[] args) {
+        Soldier rambo = new Soldier();
+
+        rambo.runContext(new Strategy() {
+            @Override
+            public void runStrategy() {
+                System.out.println("총! 총초총총총 발사!!");
+            }
+        });
+
+        System.out.println();
+
+        rambo.runContext(new Strategy() {
+            @Override
+            public void runStrategy() {
+                System.out.println("칼! 카가갈 칼! 칼로 찌른다!!");
+            }
+        });
+
+        System.out.println();
+
+        rambo.runContext(new Strategy() {
+            @Override
+            public void runStrategy() {
+                System.out.println("도끼 도독.... 도끼로 내리친다!!");
+            }
+        });
+    }
+}
+```
+
+### 09-2. 템플릿 콜백 패턴(Template Callback Pattern) 리팩토링
+
+```java
+// 전략 : Strategy
+public interface Strategy {
+    public abstract void runStrategy();
+}
+```
+
+```java
+// 컨텍스트 : 군인
+public class Soldier {
+
+    void runContext(String weaponSound) {
+        System.out.println("전투 시작");
+        strategy.executeWeapon(weaponSound);
+        System.out.println("전투 종료");
+    }
+
+    private Strategy executeWeapon(final String weaponSound) {
+        return new Strategy() {
+            @Override
+            public void runStrategy() {
+                System.out.println(weaponSound);
+            }
+        }
+    }
+
+}
+```
+
+```java
+// 클라이언트 : 장교
+public class Client {
+
+    public static void main(String[] args) {
+        Soldier rambo = new Soldier();
+
+        rambo.runContext("총! 발사!");
+        rambo.runContext("칼! 찌른다!");
+        rambo.runContext("도끼! 내리친다!");
+    }
+}
+```
+
+### 한줄 정리
+
+> ⭐ 전략을 익명 내부 클래스로 구현한 전략 패턴
 
 ## 10. 스프링이 사랑한 다른 패턴들(디자인패턴 마무리)
 
-- 위 8가지 패턴 말고도 스프링은 다양한 디자인 패턴 활용.
-- 대표적으로는 Spring MVC(Model, View, Controller) 패턴 존재.
+- 위 8가지 패턴 말고도 스프링은 다양한 디자인 패턴 활용
+- 대표적으로는 Spring MVC(Model, View, Controller) 패턴 존재
 
 ### 참고 자료
 

@@ -289,7 +289,7 @@ public class ClientWithProxy {
 ### 04-2. 데코레이터 패턴 적용
 
 ```java
-// After: Interface Iservice
+// Interface Iservice
 public Interface IService {
     // public abstract 생략해도 상관 없음
     public abstract String runSomething();
@@ -297,7 +297,7 @@ public Interface IService {
 ```
 
 ```java
-// After: Class Service
+// Class Service
 public class Service implements IService {
 
     @Overried
@@ -308,7 +308,7 @@ public class Service implements IService {
 ```
 
 ```java
-// After: Class Decoreator
+// Class Decoreator
 public class Decoreator implements IService {
     IService service; // interface ref variable
 
@@ -325,6 +325,7 @@ public class Decoreator implements IService {
 ```
 
 ```java
+// Class Decoreator
 public class ClientWithDecolator {
 
     public static void main(String[] args) {
@@ -370,6 +371,7 @@ public class ClientWithDecolator {
 ### 05-2. 싱글턴 패턴 적용
 
 ```java
+// Class Singleton
 public class Singleton {
     static Singleton singletonObj; // static reference variable
 
@@ -387,6 +389,7 @@ public class Singleton {
 ```
 
 ```java
+// Class Clinet
 public class Clinet {
 
     public static void main(String[] args) {
@@ -433,11 +436,256 @@ TODO
 
 > ⭐ 클래스의 인스턴스, 즉 객체를 하나만 만들어 사용하는 패턴
 
-## 06. 템플릿 메서드 패턴(Template Method Pattern)
+## 06. 템플릿 메서드 패턴(Template Method Pattern) 적용 전
+
+- `상위 클래스에서 처리의 흐름을 제어`
+- `하위 클래스에서 처리의 내용을 구체화 하는 것`
+
+### 06-1. 템플릿 메서드 패턴 적용
+
+```java
+// Before : Class Dog
+public class Dog {
+    public void playWithOwner() {
+        System.out.println("귀염둥이 이리온...");
+        System.out.println("멍! 멍! 멍!"); // 중복
+        System.out.println("꼬리 살랑 살랑~");
+        System.out.println("잘했어");
+    }
+}
+```
+
+```java
+// Before : Class Cat
+public class Cat {
+    public void playWithOwner() {
+        System.out.println("귀염둥이 이리온...");
+        System.out.println("야옹~ 야옹~"); // 중복
+        System.out.println("꼬리 살랑 살랑~");
+        System.out.println("잘했어");
+    }
+}
+```
+
+- 두번째 줄을 보면 중복되는 코드가 존재
+- OOP의 특성 중 하나인 상속을 통해 문제 해결
+
+### 06-2. 템플릿 메서드 패턴(Template Method Pattern) 적용 후
+
+```java
+// After : Class Animal
+public abstract class Animal {
+    // template Method
+    public void playWithOwner() {
+        System.out.println("귀염둥이 이리온...");
+        play();
+        runSomething();
+        System.out.println("잘했어");
+    }
+
+    // abstract method
+    abstract void play();
+
+    // Hook(갈고리) 메서드, abstract 키워드 없어야함
+    void runSomething() {
+        System.out.println("꼬리 살랑 살랑~");
+    }
+}
+```
+
+**훅(Hook) 메서드란?**
+
+abstract 키워드를 클래스에 붙히면 상속받은 클래스는 반드시 해당 클래스의 추상 메서드를 구현해야 하지만 훅(Hook) 메서드로 만들면 반드시 구현할 필요가 없다. 즉, 선택적 오버라이딩(Override)가 가능해진다는 말이다.
+
+```java
+// After : Class Dog
+public class Dog extends Animal {
+
+    // 추상 메서드 오버라이딩
+    @Override
+    void play() {
+        System.out.println("멍! 멍!");
+    }
+
+    // Hook 메서드 오버라이딩
+    @Override
+    void runSomething() {
+        System.out.println("멍! 멍!~ 꼬리 살랑 살랑~");
+    }
+}
+```
+
+```java
+// After : Class Cat
+public class Cat extends Animal {
+
+    // 추상 메서드 오버라이딩
+    @Override
+    void play() {
+        System.out.println("야옹~ 야옹~");
+    }
+
+    // Hook 메서드 오버라이딩
+    @Override
+    void runSomething() {
+        System.out.println("야옹~ 야옹~ 꼬리 살랑 살랑~")
+    }
+}
+```
+
+```Java
+// After : Class Driver
+public class Driver {
+
+    public static void main(String[] args) {
+        Animal bolt = new Dog();
+        Animal kitty = new Cat();
+
+        bolt.playWithOwner(); // bolt 참조 변수로 template method 호출
+
+        System.out.println();
+        System.out.println();
+
+        kitty.playWithOwner(); // kitty 참조 변수로 template method 호출
+    }
+}
+```
+
+### 06-2. 시퀸스 다이어그램
+
+- `상위 클래스 Animal`에는 `템플릿`을 제공하는 `playWithOwner 메서드`가 존재.
+  - play() 추상 메서드
+  - runSomething() 훅 메서드
+
+> 이처럼 **상위 클래스**에 **공통 로직을 수행하는 템플릿 메서드**와 **하위 클래스**에 오버라이딩을 강제하는 **추상 메서드** 또는 선택적 오버라이딩이 가능한 **훅 메서드**를 두는 패턴을 템플릿 메서드 패턴이라 지칭한다.
+
+![template_method_seq_diagram](./images/template_method_seq_diagram.PNG)
+
+![template_method_pattern_diagram](./images/template_method_pattern_diagram.PNG)
+
+| 템플릿 메서드 패턴 구성 요소               | 상위 클래스 Animal | 하위 클래스 Dog, Cat | 부연 설명                                                    |
+| ------------------------------------------ | ------------------ | -------------------- | ------------------------------------------------------------ |
+| 템플릿 메서드                              | playWithOwner()    |                      | 공통 로직을 수행, 로직 중 하위 클래스의 추상, 훅 메서드 호출 |
+| 템플릿 메서드에서 호출하는 추상 메서드     | play()             | 오버라이딩 필수      | 비고                                                         |
+| 템플릿 메서드에서 호출하는 훅(Hook) 메서드 | runSomething()     | 오버라이딩 선택      | 비고                                                         |
+
+### 한줄 정리
+
+> ⭐상위 클래스의 견본 메서드에서 하위 클래스가 오버리이딩한 메서드를 호출하는 패턴
 
 ## 07. 팩터리 메서드 패턴(Factory Method Pattern)
 
+<img alt="curiosity" src="./images/abstract_factory_pattern.PNG" width=70%>
+
+- 우선, 공장이라는 단어를 생각해보면, `무언가를 생산한다` 라는 단어가 떠오른다.
+- 객체지향에서 `팩터리`는 객체를 생성하는데, `팩토리 메서드`는 `객체를 생성 반환하는 메서드를 의미`.
+- **하위 클래스에서 팩터리 메서드를 오버라이딩하여 객체를 반환하는 것.**
+
+![ball_dog](./images/ball_dog.png)
+
+> 위에서 강아지 bolt와 고양이 kitty가 주인과 노는 코드를 작성해 보았는데  
+> 이번에는 bolt와 kitty가 **각자 가지고 놀고 싶어하는 장난감을 가져오는 모습**을 상상해보자.
+
+### 07-1 팩터리 메서드 패턴 적용
+
+```java
+// abstract class Animal
+public abstract class Animal {
+
+    // 추상 팩터리 메서드
+    abstract AnimalToy getToy();
+}
+```
+
+```java
+// abstract class AnimalToy
+// @desc 팩터리 메서드가 생성할 객체의 상위 클래스
+public abstract class AnimalToy {
+
+    abstract void identify();
+}
+```
+
+```java
+// class Dog
+public class Dog extends Animal {
+
+    // 추상 팩터리 메서드 오버라이딩
+    @Override
+    AnimalToy getToy() {
+        return new DogToy();
+    }
+
+}
+```
+
+```java
+// class DogToy
+public class DogToy extends AnimalToy {
+
+    public void identify() {
+        System.out.println("나는 테니스공! 강아지의 친구!");
+    }
+}
+```
+
+```java
+// class Cat
+public class Cat extends Animal {
+
+    // 추상 팩터리 메서드 오버라이딩
+    @Override
+    AnimalToy getToy() {
+        return new CatToy();
+    }
+
+}
+```
+
+```java
+// class CatToy
+public class CatToy extends AnimalToy {
+
+    public void identify() {
+        System.out.println("나는 캣타워! 고양이의 친구!");
+    }
+}
+```
+
+```java
+public class Driver {
+
+    public static void main(String[] args) {
+        // 팩터리 메서드를 보유한 객체들 생성
+        Animal bolt = new Dog();
+        Animal kitty = new Cat();
+
+        // 팩터리 메서드가 반환하는 객체들
+        AnimalToy boltBall = bolt.getToy();
+        AnimalToy kittyTower = kitty.getToty();
+
+        // 팩터리 메서드가 반환한 객체들을 사용
+        boltBall.identify();
+        boltBall.identify();
+    }
+}
+```
+
+![factory_method_pattern_diagram](./images/factory_method_pattern_diagram.PNG)
+
+![factory_method_patter_seq_diagram](./images/factory_method_patter_seq_diagram.PNG)
+
+### 한줄 정리
+
+> ⭐ 오버라이드된 메서드가 객체를 반환하는 패턴
+
 ## 08. 전략 패턴(Strategy Pattern)
+
+- 전략 메서드를 가진 전략 객체
+- 전략 객체를 사용하는 **컨텍스트**(**전략 객체 사용자**)
+- 전략 객체를 생성해 컨텍스트에 주입하는 **클라이언트**(**전략 객체 공급자**)
+
+![strategy_pattern](./images/strategy_pattern.PNG)
 
 ## 09. 템플릿 콜백 패턴(Template Callback Pattern - 견본/회신 패턴)
 
@@ -453,3 +701,4 @@ TODO
 - [[사진 참고] IStock](https://www.istockphoto.com/kr/%EB%B2%A1%ED%84%B0/%EB%91%90-%EB%B2%A1%ED%84%B0-%ED%81%AC%EB%A6%AC%EC%8A%A4%EB%A7%88%EC%8A%A4-%ED%8A%B8%EB%A6%AC%EC%9E%85%EB%8B%88%EB%8B%A4-%ED%81%AC%EB%A6%AC%EC%8A%A4%EB%A7%88%EC%8A%A4-%ED%8A%B8%EB%A6%AC-%EA%BE%B8%EB%AF%B8%EA%B8%B0-%EC%A0%84%ED%9B%84-%ED%81%AC%EB%A6%AC%EC%8A%A4%EB%A7%88%EC%8A%A4-%EC%9E%A5%EC%8B%9D-%ED%94%8C%EB%9E%AB-%EA%B3%A0%EB%A6%BD-%EB%90%9C-%EA%B7%B8%EB%A6%BC%EC%9E%85%EB%8B%88%EB%8B%A4-gm1064483898-284620235)
 - [[사진 참고] How Do I Setup A Proxy Server On Windows PC?](https://streamtelly.com/proxy-server-windows/)
 - [[사진 참고] Connection pool](https://hyuntaeknote.tistory.com/12)
+- [[사진 참고] 추상 팩토리 패턴](https://heebeom.me/posts/abstract-factory-pattern/)

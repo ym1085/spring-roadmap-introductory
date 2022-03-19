@@ -286,7 +286,7 @@ public class ClientWithProxy {
   - 클라이언트가 받는 반환값에 장식을 더한다
   - 즉, return 값을 핸들링 한다는 의미
 
-### 04-2. 데코레이터 패턴 적용 후
+### 04-2. 데코레이터 패턴 적용
 
 ```java
 // After: Interface Iservice
@@ -352,6 +352,87 @@ public class ClientWithDecolator {
 
 ## 05. 싱글턴 패턴(Singleton Pattern)
 
+![connection_pool](./images/connection_pool.PNG)
+
+- `인스턴스를 하나만 만들어 사용하기 위한 패턴. `
+- **Connection pool**, **Thread pool**은 인스턴스를 여러개를 만들면 불필요한 자원 사용.
+  - 프로그램이 예상치 못한 결과를 낳을 수 있음.
+
+### 05-1. 싱글턴 패턴 적용을 위한 제약
+
+> 싱글턴 패턴은 오직 인스턴스를 하나만 만들고 그것을 계속해서 재사용한다.  
+> 싱글턴 패턴을 적용할 경우 의미상 두 개의 객체가 존재할 수 없다.
+
+1. 객체 생성을 위한 **new 키워드**에 제약을 걸어야 함.
+2. 유일한 단일 객체를 반환할 수 있는 정적 메서드(**static method**) 필요.
+3. 유일한 단일 객체를 참조할 정적 참조 변수(**static variable**)가 필요.
+
+### 05-2. 싱글턴 패턴 적용
+
+```java
+public class Singleton {
+    static Singleton singletonObj; // static reference variable
+
+    // private constructor
+    private Singleton() { };
+
+    // return singletonObj
+    public static Singleton getInstance() {
+        if (singletonObj == null) {
+            singletonObj = new Singleton();
+        }
+        return singletonObj;
+    }
+}
+```
+
+```java
+public class Clinet {
+
+    public static void main(String[] args) {
+        // The constructor Singleton() is not visible
+        // Singleton singleton = new Singleton();
+
+        Singleton s1 = Singleton.getInstance();
+        Singleton s2 = Singleton.getInstance();
+        Singleton s3 = Singleton.getInstance();
+
+        System.out.println(s1);
+        System.out.println(s2);
+        System.out.println(s3);
+
+        s1 = null;
+        s2 = null;
+        s3 = null;
+    }
+}
+```
+
+```
+TODO
+싱글턴 결과 여기에 적어주삼
+```
+
+### 05-3. 메모리 구조 확인
+
+![singleton_memory](./images/singleton_memory.PNG)
+
+- 4개의 참조변수가 하나의 단일 객체를 참고
+- `단일 객체`인 경우 공유 객체로 사용되기 때문에 `속성을 갖지 않는게 정석`
+  - 하나의 참조 변수가 변경한 속성이 다른 참조 변수에 영향을 미침
+  - 이를, 전역/공유 변수를 가능한 사용하지 말라는 지침과 일맥상통
+  - final static 변수는 상관 없음
+
+### 05-4. 싱글턴 패턴 정리
+
+1. `private 생성자`
+2. `static 참조 변수`
+3. `static 메서드`
+
+### 한줄 정리
+
+> ⭐ 클래스의 인스턴스, 즉 객체를 하나만 만들어 사용하는 패턴
+
 ## 06. 템플릿 메서드 패턴(Template Method Pattern)
 
 ## 07. 팩터리 메서드 패턴(Factory Method Pattern)
@@ -371,3 +452,4 @@ public class ClientWithDecolator {
 - [[사진 참고] Spring 이론 (POJO, Java Beans)](https://ksshlee.github.io/spring/spring/)
 - [[사진 참고] IStock](https://www.istockphoto.com/kr/%EB%B2%A1%ED%84%B0/%EB%91%90-%EB%B2%A1%ED%84%B0-%ED%81%AC%EB%A6%AC%EC%8A%A4%EB%A7%88%EC%8A%A4-%ED%8A%B8%EB%A6%AC%EC%9E%85%EB%8B%88%EB%8B%A4-%ED%81%AC%EB%A6%AC%EC%8A%A4%EB%A7%88%EC%8A%A4-%ED%8A%B8%EB%A6%AC-%EA%BE%B8%EB%AF%B8%EA%B8%B0-%EC%A0%84%ED%9B%84-%ED%81%AC%EB%A6%AC%EC%8A%A4%EB%A7%88%EC%8A%A4-%EC%9E%A5%EC%8B%9D-%ED%94%8C%EB%9E%AB-%EA%B3%A0%EB%A6%BD-%EB%90%9C-%EA%B7%B8%EB%A6%BC%EC%9E%85%EB%8B%88%EB%8B%A4-gm1064483898-284620235)
 - [[사진 참고] How Do I Setup A Proxy Server On Windows PC?](https://streamtelly.com/proxy-server-windows/)
+- [[사진 참고] Connection pool](https://hyuntaeknote.tistory.com/12)

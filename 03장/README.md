@@ -98,7 +98,11 @@ public class ClientWithNoAdapter {
 
 ### 02-2. 시퀸스 다이어그램(Sequence Diagram)
 
+<img alt="before_adapter_diagram" src="./images/before_adapter_diagram.PNG" width=90%>
+
+<!--
 ![before_adapter_diagram](./images/before_adapter_diagram.PNG)
+-->
 
 ### 02-3. 어댑터 패턴 적용 후
 
@@ -143,7 +147,13 @@ public class ClientWithAdapter {
 
 ### 02-4. 시퀸스 다이어그램(Sequence Diagram)
 
+<img alt="after_adapter_diagram" src="./images/after_adapter_diagram.PNG" width=100%>
+
+<!--
+
 ![after_adapter_diagram](./images/after_adapter_diagram.PNG)
+
+-->
 
 - 어댑터 패턴 `합성`, 즉 객체를 속성으로 만들어서 참조하는 디자인 패턴
 - 호출 당하는 쪽의 메서드(**runServiceA**)를 중간 변환기(**AdapterServiceA**)를 통해 호출하는 패턴
@@ -558,7 +568,11 @@ public class Driver {
 
 ![template_method_seq_diagram](./images/template_method_seq_diagram.PNG)
 
+<!--
 ![template_method_pattern_diagram](./images/template_method_pattern_diagram.PNG)
+-->
+
+<img alt="template_method_pattern_diagram" src="./images/template_method_pattern_diagram.PNG" width=100%>
 
 | 템플릿 메서드 패턴 구성 요소               | 상위 클래스 Animal | 하위 클래스 Dog, Cat | 부연 설명                                                    |
 | ------------------------------------------ | ------------------ | -------------------- | ------------------------------------------------------------ |
@@ -670,7 +684,11 @@ public class Driver {
 
 ![factory_method_pattern_diagram](./images/factory_method_pattern_diagram.PNG)
 
+<img alt="factory_method_patter_seq_diagram.PNG" src="./images/factory_method_patter_seq_diagram.PNG" width=100%>
+
+<!--
 ![factory_method_patter_seq_diagram](./images/factory_method_patter_seq_diagram.PNG)
+-->
 
 ### 한줄 정리
 
@@ -786,7 +804,13 @@ public class Client {
 
 ![strategy_pattern_diagram](./images/strategy_pattern_diagram.PNG)
 
+<img alt="strategy_pattern_seq_diagram" src="./images/strategy_pattern_seq_diagram.PNG" width=100%>
+
+<!--
+
 ![strategy_pattern_seq_diagram](./images/strategy_pattern_seq_diagram.PNG)
+
+-->
 
 ### 한줄 정리
 

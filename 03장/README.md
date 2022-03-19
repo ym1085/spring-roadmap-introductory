@@ -384,8 +384,8 @@ public class Singleton {
 ```
 
 ```java
-// Class Clinet
-public class Clinet {
+// Class Client
+public class Client {
 
     public static void main(String[] args) {
         // The constructor Singleton() is not visible
@@ -404,11 +404,6 @@ public class Clinet {
         s3 = null;
     }
 }
-```
-
-```
-TODO
-싱글턴 결과 여기에 적어주삼
 ```
 
 ### 05-3. 메모리 구조 확인
@@ -761,7 +756,7 @@ public class Client {
         rambo.runContext(strategy);
 
         System.out.println();
-        // 검을 람보에게 전달, 전투 수행
+        // 화살을 람보에게 전달, 전투 수행
         strategy = new StrategySBow();
         rambo.runContext(strategy);
     }
@@ -870,9 +865,9 @@ public interface Strategy {
 public class Soldier {
 
     void runContext(String weaponSound) {
-        System.out.println("전투 시작");
-        strategy.executeWeapon(weaponSound);
-        System.out.println("전투 종료");
+        System.out.println("소환사의 협곡에 오신것을 환영합니다.");
+        executeWeapon(weaponSound).runStrategy();
+        System.out.println("전투가 종료되었습니다.");
     }
 
     private Strategy executeWeapon(final String weaponSound) {
@@ -881,9 +876,8 @@ public class Soldier {
             public void runStrategy() {
                 System.out.println(weaponSound);
             }
-        }
+        };
     }
-
 }
 ```
 

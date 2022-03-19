@@ -436,12 +436,12 @@ TODO
 
 > ⭐ 클래스의 인스턴스, 즉 객체를 하나만 만들어 사용하는 패턴
 
-## 06. 템플릿 메서드 패턴(Template Method Pattern) 적용 전
+## 06. 템플릿 메서드 패턴(Template Method Pattern)
 
 - `상위 클래스에서 처리의 흐름을 제어`
 - `하위 클래스에서 처리의 내용을 구체화 하는 것`
 
-### 06-1. 템플릿 메서드 패턴 적용
+### 06-1. 템플릿 메서드 패턴 적용(Template Method Pattern) 적용 전
 
 ```java
 // Before : Class Dog
@@ -495,7 +495,8 @@ public abstract class Animal {
 
 **훅(Hook) 메서드란?**
 
-abstract 키워드를 클래스에 붙히면 상속받은 클래스는 반드시 해당 클래스의 추상 메서드를 구현해야 하지만 훅(Hook) 메서드로 만들면 반드시 구현할 필요가 없다. 즉, 선택적 오버라이딩(Override)가 가능해진다는 말이다.
+abstract 키워드를 클래스에 붙히면 상속받은 클래스는 반드시 해당 클래스의 추상 메서드를 구현해야 하지만  
+훅(Hook) 메서드로 만들면 반드시 구현할 필요가 없다. 즉, 선택적 오버라이딩(Override)가 가능해진다는 말이다.
 
 ```java
 // After : Class Dog
@@ -686,6 +687,114 @@ public class Driver {
 - 전략 객체를 생성해 컨텍스트에 주입하는 **클라이언트**(**전략 객체 공급자**)
 
 ![strategy_pattern](./images/strategy_pattern.PNG)
+
+> `클라이언트는 다양한 전략 중 하나를 선택해 생성 후 컨텍스트에 주입`
+
+- 보급 장교가 군인에게 무기를 지급한다.
+  - **보급 장교** : 클라이언트
+  - **군인** : 컨텍스트
+  - **무기** : 전략
+
+### 08-1. 전략 패턴(Strategy Pattern) 적용
+
+```java
+// 전략용 인터페이스
+public interface Strategy {
+    public abstract void runStrategy(); // 전략 메서드 생성
+}
+```
+
+```java
+public class StrategyGun implements Strategy {
+
+    @Override
+    public void runStrategy() {
+        System.out.println("탕!, 탕!, 탕!, 총으로 쏘는 전략!");
+    }
+}
+```
+
+```java
+public class StrategySword implements Strategy {
+
+    @Override
+    public void runStrategy() {
+        System.out.println("챙!, 챙!, 챙!, 검을 휘두르는 전략!");
+    }
+}
+```
+
+```java
+public class StrategyBow implements Strategy {
+
+    @Override
+    public void runStrategy() {
+        System.out.println("슈우우우웅웅~~~!, 활을 쏘는 전략!");
+    }
+}
+```
+
+```Java
+// 군인의 역할
+public class Soldier {
+
+    void runContext(Strategy strategy) {
+        System.out.println("전투 시작");
+        strategy.runStrategy();
+        System.out.println("전투 종료");
+    }
+}
+```
+
+```java
+// 보급 장교의 역할
+public class Client {
+
+    public static void main(String[] args) {
+        Strategy strategy = null;
+        Soldier rambo = new Soldier();
+
+        // 총을 람보에게 전달, 전투 수행
+        strategy = new StrategyGun();
+        rambo.runContext(strategy);
+
+        System.out.println();
+
+        // 검을 람보에게 전달, 전투 수행
+        strategy = new StrategySword();
+        rambo.runContext(strategy);
+
+        System.out.println();
+        // 검을 람보에게 전달, 전투 수행
+        strategy = new StrategySBow();
+        rambo.runContext(strategy);
+    }
+}
+```
+
+```
+전투 시작
+탕!, 탕!, 탕!, 총으로 쏘는 전략!
+전투 종료
+
+전투 시작
+챙!, 챙!, 챙!, 검을 휘두르는 전략!
+전투 종료
+
+전투 시작
+슈우우우웅웅~~~!, 활을 쏘는 전략!
+전투 종료
+```
+
+- 전략 패턴과 템플릿 메서드 패턴이 비슷한 감이 있지만, 단일 상속만 가능한 자바 -> `전략 패턴`
+
+![strategy_pattern_diagram](./images/strategy_pattern_diagram.PNG)
+
+![strategy_pattern_seq_diagram](./images/strategy_pattern_seq_diagram.PNG)
+
+### 한줄 정리
+
+> ⭐ 클라이언트 측에서 전략(객체)을 생성해 전략을 실행할 컨텍스트에 주입하는 패턴
 
 ## 09. 템플릿 콜백 패턴(Template Callback Pattern - 견본/회신 패턴)
 

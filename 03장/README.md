@@ -150,7 +150,7 @@ public class ClientWithAdapter {
 
 ## 03. 프록시 패턴(Proxy Pattern)
 
-<img alt="curiosity" src="./images/proxy.png" width=80%>
+<img alt="proxy" src="./images/proxy.png" width=80%>
 
 > 개방 폐쇄 원칙과 의존 역전 법칙이 녹아들어 있는 프록시 패턴
 

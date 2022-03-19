@@ -321,7 +321,7 @@ public class Decoreator implements IService {
 
 ```java
 // Class Decoreator
-public class ClientWithDecolator {
+public class ClientWithDecorator {
 
     public static void main(String[] args) {
         // 상위 인터페이스로 하위 Decorator 객체를 받는다

@@ -89,7 +89,7 @@ public class ClientWithNoAdapter {
 
     public static void main(String[] args) {
         ServiceA sa1 = new ServiceA(); // 1. 객체 생성
-        ServiceB sb1 = new ServiceA(); // 2. 객체 생성
+        ServiceB sb1 = new ServiceB(); // 2. 객체 생성
 
         sa1.runServiceA(); // 3. sa1.runServiceA() 호출
         sb1.runServiceB(); // 4. sa1.runServiceB() 호출
@@ -783,7 +783,7 @@ public class Client {
 전투 종료
 ```
 
-- 전략 패턴과 템플릿 메서드 패턴이 비슷한 감이 있지만, 단일 상속만 가능한 자바 -> `전략 패턴`
+- 전략 패턴과 템플릿 메서드 패턴이 비슷한 감이 있지만, 단일 상속만 가능한 자바 -> **전략 패턴**
 
 ![strategy_pattern_diagram](./images/strategy_pattern_diagram.PNG)
 
